@@ -1,1 +1,1 @@
-Ceci est une fausse description des fonctionalités de l'app
+Éditeur en ligne pour créer et manipuler des chemins SVG.

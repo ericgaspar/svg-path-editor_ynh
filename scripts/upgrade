@@ -12,7 +12,7 @@ source /usr/share/yunohost/helpers
 #=================================================
 ynh_script_progression "Upgrading source files..."
 
-ynh_setup_source --dest_dir="$install_dir" --full_replace --keep=".env data"
+ynh_setup_source --dest_dir="$install_dir" --full_replace
 
 #=================================================
 # REAPPLY SYSTEM CONFIGURATION
@@ -21,7 +21,15 @@ ynh_script_progression "Upgrading system configurations related to $app..."
 
 ynh_config_add_nginx
 
-ynh_config_add_systemd
+#=================================================
+# INSTALL APP
+#=================================================
+ynh_script_progression "Installing the app..."
+
+pushd "$install_dir"
+ 	ynh_hide_warnings ynh_exec_as_app npm install
+ 	ynh_hide_warnings ynh_exec_as_app npm run build
+popd
 
 #=================================================
 # END OF SCRIPT
