@@ -58,6 +58,9 @@ ram.runtime = "50M"
     [resources.permissions]
     main.url = "/"
 
+    [resources.ports]
+    main.default = 4200
+    
     [resources.nodejs]
     version = "22"
     
