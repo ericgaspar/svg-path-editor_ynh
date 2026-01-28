@@ -30,6 +30,10 @@ ynh_script_progression "Adding system configurations related to $app..."
 # Create a dedicated NGINX config using the conf/nginx.conf template
 ynh_config_add_nginx
 
+ynh_config_add_systemd
+
+yunohost service add "$app" --description="Documentation tool for creativity" --log="/var/log/$app/$app.log"
+
 #=================================================
 # INSTALL APP
 #=================================================
@@ -39,6 +43,12 @@ pushd "$install_dir"
  	ynh_hide_warnings ynh_exec_as_app npm install
  	ynh_hide_warnings ynh_exec_as_app npm run build
 popd
+#=================================================
+# START SYSTEMD SERVICE
+#=================================================
+ynh_script_progression "Starting $app's systemd service..."
+
+ynh_systemctl --service="$app" --action="start"
 
 #=================================================
 # END OF SCRIPT
